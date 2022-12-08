@@ -41,6 +41,7 @@ public class Funciones_Empresa {
         String tel = rc.TelEmpresa.getText();
         String pass = rc.PassEmpresa.getText();
         int pro = rc.cbxProfesionalesAd.getItemAt(rc.cbxProfesionalesAd.getSelectedIndex()).getId_persona();
+        int rep = rc.cbxRepre.getItemAt(rc.cbxRepre.getSelectedIndex()).getId_persona();
 
         try {
             URL url = new URL("http://127.0.0.1:8000/administrador/empresa");
@@ -53,8 +54,9 @@ public class Funciones_Empresa {
             params.put("DIRECCION_EMPRESA", dir);
             params.put("ID_CONTRATO", 1);
             params.put("ID_ESTADO", 1);
+            params.put("ID_ROL", 3);
             params.put("ID_PROFESIONAL", pro);
-            //params.put("ID_REPRESENTANTE", rep);
+            params.put("ID_REPRESENTANTE", rep);
             params.put("USERNAME", rut);
             params.put("PASSWORD", pass);
 
@@ -199,6 +201,7 @@ public class Funciones_Empresa {
 
         DefaultTableModel tabla = new DefaultTableModel();
 
+        tabla.addColumn("ID EMPRESA");
         tabla.addColumn("RUT EMPRESA");
         tabla.addColumn("NOMBRE EMPRESA");
         tabla.addColumn("RUBRO EMPRESA");
@@ -236,14 +239,15 @@ public class Funciones_Empresa {
                     for (int i = 0; i < 10; i++) {
 
                         JSONObject object = json.getJSONObject(i);
-                        
-                        datos[0] = object.getString("Rut_empresa");
-                        datos[1] = object.getString("Nombre_empresa");
-                        datos[2] = object.getString("Rubro_empresa");
-                        datos[3] = object.getString("Telefono_empresa");
-                        datos[4] = object.getString("Correo_empresa");
-                        datos[5] = object.getString("Direccion_empresa");
-                        datos[6] = object.getString("Estado");
+
+                        datos[0] = String.valueOf(object.getInt("Id_empresa"));
+                        datos[1] = object.getString("Rut_empresa");
+                        datos[2] = object.getString("Nombre_empresa");
+                        datos[3] = object.getString("Rubro_empresa");
+                        datos[4] = object.getString("Telefono_empresa");
+                        datos[5] = object.getString("Correo_empresa");
+                        datos[6] = object.getString("Direccion_empresa");
+                        datos[7] = object.getString("Estado");
 
                         tabla.addRow(datos);
                         //a++;
@@ -306,4 +310,26 @@ public class Funciones_Empresa {
         }
     }
 
+    public void validación(RegistroClientes rc) {
+
+        if (rc.NomEmpresa.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingrese Nombre");
+        } else if (rc.RutEmpresa.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingrese Rut");
+        } else if (rc.RubroEmpresa.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingrese Rubro");
+        } else if (rc.EmailEmpresa.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingrese Email");
+        } else if (rc.DireccionEmpresa.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingrese Direccion");
+        } else if (rc.TelEmpresa.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingrese Telefono");
+        } else if (rc.PassEmpresa.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingrese Contraseña");
+        } else{
+            GuardarEmpresa(rc);
+            Limpiar(rc);
+        }
+
+    }
 }

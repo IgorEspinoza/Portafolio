@@ -27,7 +27,6 @@ public class Capacitación extends javax.swing.JPanel {
 
     public int id;
     public int id2;
-    Profesionales pro = new Profesionales();
     Funciones_Profesional fpro = new Funciones_Profesional();
 
     public Capacitación() {

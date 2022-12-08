@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import Vistas_Administrador.Funciones_Persona;
 import java.awt.event.KeyEvent;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -22,10 +23,12 @@ public class CambioContraseña extends javax.swing.JFrame {
     /**
      * Creates new form CambioContraseña2
      */
+    
+ 
     public CambioContraseña() {
         
         initComponents();
-        this.setLocationRelativeTo(null);           
+        this.setLocationRelativeTo(null);  
         jMensaje.setVisible(false);
     }
 
@@ -49,6 +52,7 @@ public class CambioContraseña extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jMensaje = new javax.swing.JLabel();
+        jRUT = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -103,6 +107,11 @@ public class CambioContraseña extends javax.swing.JFrame {
 
         jMensaje.setText("las contraseñas no coinciden");
 
+        jRUT.setEditable(false);
+        jRUT.setBackground(new java.awt.Color(214, 217, 223));
+        jRUT.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jRUT.setBorder(null);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -132,11 +141,17 @@ public class CambioContraseña extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jMensaje)
                 .addGap(81, 81, 81))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRUT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
+                .addComponent(jRUT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -220,21 +235,25 @@ public class CambioContraseña extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void enter(){
+        
+        
         if(jActual.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Ingrese Contraseña Actual");
         }else if(jNueva.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Ingrese Contraseña Nueva");
         }else if(jRepetida.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Vualva a Ingresar la Contraseña");
-        }else if(jNueva.getText() != null || jRepetida.getText() != null){
-            if(jNueva.getText() == jRepetida.getText()){            
-                validar();
+        }else if(jNueva.getText().length() != 0 || jRepetida.getText().length() != 0){
+            if(jNueva.getText().trim().length() == jRepetida.getText().trim().length()){            
+                cambiar();
             }else{
                 JOptionPane.showMessageDialog(null, "ERROR");
             }
         }  
 
     }
+    
+
     
     public void comparar(){
         if(jNueva.getText().length() != jRepetida.getText().length()){   
@@ -253,7 +272,7 @@ public class CambioContraseña extends javax.swing.JFrame {
 
         try {
 
-            URL url = new URL("http://127.0.0.1:8000/profesional/capacitacion");
+            URL url = new URL("http://127.0.0.1:8000/user/");
             Map<String, Object> params = new LinkedHashMap<>();
 
             
@@ -286,7 +305,7 @@ public class CambioContraseña extends javax.swing.JFrame {
             map.put("default", "Error inesperado \n intente nuevamente");
             
             if (response == 200) {
-               cambiar(p);
+               cambiar();
             } else {
                 JOptionPane.showMessageDialog(null, map.get("" + response));
             }
@@ -295,20 +314,21 @@ public class CambioContraseña extends javax.swing.JFrame {
         }
     }
     
-    public void cambiar(Profesionales p){
+    public void cambiar(){
         
-        String user = p.JRUT.getText().trim();
+        Profesionales p = new Profesionales();
+        String user = p.JRUT.getSelectedText();
         String nueva = jNueva.getText().trim();
         
 
         try {
 
-            URL url = new URL("http://127.0.0.1:8000/profesional/capacitacion");
+            URL url = new URL("http://127.0.0.1:8000/user/" + user + "/" + nueva + "?format=json");
             Map<String, Object> params = new LinkedHashMap<>();
 
             
-            params.put("Usuario", user);
-            params.put("Contraseña", nueva);
+            params.put("USERNAME", user);
+            params.put("PASSWORD", nueva);
             
             
 
@@ -348,6 +368,8 @@ public class CambioContraseña extends javax.swing.JFrame {
         }
     }
 
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -392,6 +414,7 @@ public class CambioContraseña extends javax.swing.JFrame {
     public javax.swing.JTextField jNueva;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    public javax.swing.JTextField jRUT;
     public javax.swing.JTextField jRepetida;
     // End of variables declaration//GEN-END:variables
 }

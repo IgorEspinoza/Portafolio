@@ -7,6 +7,7 @@ package Vistas_Administrador;
 import Conexión.Conexión;
 import Entidades.Empresa;
 import Entidades.Persona;
+import Entidades.Persona2;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -124,6 +125,20 @@ public class RegistroClientes extends javax.swing.JPanel {
         }
 
     }
+    
+    public void llenarRepresentantes() {
+
+        ArrayList<Persona2> listaPersona2 = fp.getPersona2();
+
+        cbxRepre.removeAllItems();
+
+        for (int i = 0; i < listaPersona2.size(); i++) {
+            cbxRepre.addItem(new Persona2(listaPersona2.get(i).getId_persona(), listaPersona2.get(i).getNombre(), listaPersona2.get(i).getRut()));
+        }
+
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -157,6 +172,8 @@ public class RegistroClientes extends javax.swing.JPanel {
         jIde = new javax.swing.JTextField();
         cbxProfesionalesAd = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
+        cbxRepre = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -217,6 +234,8 @@ public class RegistroClientes extends javax.swing.JPanel {
 
         jLabel9.setText("Profesional ");
 
+        jLabel11.setText("Representante");
+
         javax.swing.GroupLayout TelefonoEmpresaLayout = new javax.swing.GroupLayout(TelefonoEmpresa);
         TelefonoEmpresa.setLayout(TelefonoEmpresaLayout);
         TelefonoEmpresaLayout.setHorizontalGroup(
@@ -225,11 +244,13 @@ public class RegistroClientes extends javax.swing.JPanel {
                 .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addGap(28, 28, 28)
+                        .addComponent(jIde, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIde, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
                             .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4)
@@ -237,17 +258,12 @@ public class RegistroClientes extends javax.swing.JPanel {
                                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(42, 42, 42)
                 .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NomEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                    .addComponent(NomEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                     .addComponent(RubroEmpresa)
                     .addComponent(DireccionEmpresa)
-                    .addComponent(PassEmpresa))
+                    .addComponent(PassEmpresa)
+                    .addComponent(cbxRepre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(GuardarEmpresa)
-                        .addGap(18, 18, 18)
-                        .addComponent(jModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,24 +271,31 @@ public class RegistroClientes extends javax.swing.JPanel {
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(jLabel9))
-                        .addGap(47, 47, 47)
+                        .addGap(56, 56, 56)
                         .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbxProfesionalesAd, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(EmailEmpresa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                            .addComponent(EmailEmpresa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
                             .addComponent(TelEmpresa, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(RutEmpresa))
-                        .addGap(52, 52, 52)))
-                .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jEliminar)
-                    .addComponent(jLimpiar))
-                .addGap(41, 41, 41))
+                        .addGap(58, 58, 58)
+                        .addComponent(jLimpiar))
+                    .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GuardarEmpresa)
+                        .addGap(30, 30, 30)
+                        .addComponent(jModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jEliminar)))
+                .addGap(36, 36, 36))
         );
         TelefonoEmpresaLayout.setVerticalGroup(
             TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
+                .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jIde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(NomEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,40 +308,46 @@ public class RegistroClientes extends javax.swing.JPanel {
                         .addGap(30, 30, 30)
                         .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(DireccionEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(TelEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLimpiar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                        .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(PassEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxProfesionalesAd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(GuardarEmpresa)
-                                    .addComponent(jEliminar)
-                                    .addComponent(jModificar))
-                                .addGap(30, 30, 30))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TelefonoEmpresaLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jIde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))))
+                            .addComponent(DireccionEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
                         .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(RubroEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(EmailEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                        .addGap(18, 18, 18)
+                        .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TelEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLimpiar))))
+                .addGap(18, 18, 18)
+                .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
+                        .addComponent(cbxProfesionalesAd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(GuardarEmpresa)
+                            .addComponent(jModificar)
+                            .addComponent(jEliminar))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
+                        .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(PassEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(TelefonoEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel11))
+                            .addGroup(TelefonoEmpresaLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(cbxRepre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(44, Short.MAX_VALUE))))
         );
 
-        jPanel1.add(TelefonoEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 990, -1));
+        jPanel1.add(TelefonoEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 990, 290));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 990, 10));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 990, 10));
 
         jListaEmpresa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -401,7 +430,7 @@ public class RegistroClientes extends javax.swing.JPanel {
 
     private void GuardarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarEmpresaActionPerformed
         int id = cbxProfesionalesAd.getItemAt(cbxProfesionalesAd.getSelectedIndex()).getId_persona();
-        fe.GuardarEmpresa(this);
+        fe.validación(this);
         fe.listarEmpresas(this);
     }//GEN-LAST:event_GuardarEmpresaActionPerformed
 
@@ -453,12 +482,14 @@ public class RegistroClientes extends javax.swing.JPanel {
     public javax.swing.JTextField TelEmpresa;
     private javax.swing.JPanel TelefonoEmpresa;
     public javax.swing.JComboBox<Persona> cbxProfesionalesAd;
+    public javax.swing.JComboBox<Persona2> cbxRepre;
     private javax.swing.JButton jActualizar;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jEliminar;
     public javax.swing.JTextField jIde;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

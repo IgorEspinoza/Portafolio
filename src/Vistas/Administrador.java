@@ -483,6 +483,7 @@ public class Administrador extends javax.swing.JFrame {
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
         RegistroClientes rc = new RegistroClientes();
         rc.llenarProfesionales();
+        rc.llenarRepresentantes();
         rc.setSize(1070, 720);
         rc.setLocation(0, 0);
 

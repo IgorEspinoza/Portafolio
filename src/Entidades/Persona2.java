@@ -8,10 +8,9 @@ package Entidades;
  *
  * @author igore
  */
-public class Persona {
-    
+public class Persona2 {
     int Id_persona;
-    String rut;
+    String Rut;
     String Nombre;
     String A_Paterno;
     String A_Materno;
@@ -20,58 +19,20 @@ public class Persona {
     int Telefono;
     int Id_rol;
     int Id_estado;
+
+    public Persona2(){}
     
-    public Persona(){}
-    
-    public Persona(int Id_persona, String Nombre){
+    public Persona2(int Id_persona, String Nombre, String Rut){
         this.Id_persona = Id_persona;
-        this.Nombre = Nombre;
+        this.Nombre = Nombre;        
+        this.Rut = Rut;        
+    }
+
+    public String toString(){
+        return Nombre + Rut;
     }
     
-    public String toString(){
-        return Nombre;
-    }
-        
-    public int getId_persona() {
-        return Id_persona;
-    }   
-
-    public void setId_persona(int id_persona) {
-        this.Id_persona = id_persona;
-    }
-
-    public int getId_rol() {
-        return Id_rol;
-    }
-
-    public void setId_rol(int id_rol) {
-        this.Id_rol = id_rol;
-    }
-
-    public int getId_estado() {
-        return Id_estado;
-    }
-
-    public void setId_estado(int Id_estado) {
-        this.Id_estado = Id_estado;
-    }
-
-    public String getRut() {
-        return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
-
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
-    }
-
+    
     public String getA_Paterno() {
         return A_Paterno;
     }
@@ -111,7 +72,46 @@ public class Persona {
     public void setTelefono(int Telefono) {
         this.Telefono = Telefono;
     }
+
+    public int getId_rol() {
+        return Id_rol;
+    }
+
+    public void setId_rol(int Id_rol) {
+        this.Id_rol = Id_rol;
+    }
+
+    public int getId_estado() {
+        return Id_estado;
+    }
+
+    public void setId_estado(int Id_estado) {
+        this.Id_estado = Id_estado;
+    }
     
-        
+    public int getId_persona() {
+        return Id_persona;
+    }
+
+    public void setId_persona(int Id_persona) {
+        this.Id_persona = Id_persona;
+    }
+
+    public String getRut() {
+        return Rut;
+    }
+
+    public void setRut(String Rut) {
+        this.Rut = Rut;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+    
     
 }

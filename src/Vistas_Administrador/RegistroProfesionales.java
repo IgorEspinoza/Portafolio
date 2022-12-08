@@ -5,6 +5,7 @@
 package Vistas_Administrador;
 
 import java.awt.Point;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -18,11 +19,11 @@ public class RegistroProfesionales extends javax.swing.JPanel {
      * Creates new form RegistroProfesionales
      */
     Funciones_Persona fp = new Funciones_Persona();
+
     public RegistroProfesionales() {
         initComponents();
         fp.listarPersona(this);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,6 +59,7 @@ public class RegistroProfesionales extends javax.swing.JPanel {
         Pass = new javax.swing.JTextField();
         jPrivilegio = new javax.swing.JComboBox<>();
         jid = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -76,9 +78,9 @@ public class RegistroProfesionales extends javax.swing.JPanel {
 
         jLabel1.setText("Profesionales");
 
-        jLabel2.setText("Nombre Profesional");
+        jLabel2.setText("Nombre ");
 
-        jLabel3.setText("Rut Profesional");
+        jLabel3.setText("Rut ");
 
         jLabel4.setText("Apellido Materno");
 
@@ -120,15 +122,22 @@ public class RegistroProfesionales extends javax.swing.JPanel {
 
         jLabel10.setText("Contraseña");
 
-        jPrivilegio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar...", "administrador", "profesional", " " }));
+        jPrivilegio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar...", "administrador", "profesional", "representante" }));
         jPrivilegio.setToolTipText("");
         jPrivilegio.setAutoscrolls(true);
+        jPrivilegio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPrivilegioActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("ROL");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
@@ -142,40 +151,47 @@ public class RegistroProfesionales extends javax.swing.JPanel {
                             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jid, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGap(42, 42, 42)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NombrePro, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                    .addComponent(PaternoPro)
-                    .addComponent(MaternoPro)
-                    .addComponent(EmailPro))
-                .addGap(118, 118, 118)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel6)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPrivilegio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PaternoPro, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                            .addComponent(MaternoPro)
+                            .addComponent(EmailPro)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                        .addComponent(NombrePro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(118, 118, 118)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPrivilegio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TelPro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(RutPro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(50, 50, 50))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addComponent(jGuardarPersona)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jModificarPersona)
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jEliminarPersona)
-                            .addComponent(jLimpiar)))
-                    .addComponent(DirPro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TelPro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(RutPro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(50, 50, 50))
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addGap(43, 43, 43)
+                                        .addComponent(jGuardarPersona)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jModificarPersona)
+                                        .addGap(18, 18, 18)))
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jEliminarPersona)
+                                    .addComponent(jLimpiar)))
+                            .addComponent(DirPro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(43, 43, 43))
         );
         jPanel7Layout.setVerticalGroup(
@@ -208,7 +224,9 @@ public class RegistroProfesionales extends javax.swing.JPanel {
                     .addComponent(EmailPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(Pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jGuardarPersona)
                     .addComponent(jEliminarPersona)
@@ -313,25 +331,6 @@ public class RegistroProfesionales extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jGuardarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarPersonaActionPerformed
-        fp.GuardarPersona(this);
-        fp.listarPersona(this);
-    }//GEN-LAST:event_jGuardarPersonaActionPerformed
-
-    private void jModificarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jModificarPersonaActionPerformed
-        fp.ModificarPersona(this);
-        fp.listarPersona(this);
-    }//GEN-LAST:event_jModificarPersonaActionPerformed
-
-    private void jLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLimpiarActionPerformed
-        fp.Limpiar(this);
-    }//GEN-LAST:event_jLimpiarActionPerformed
-
-    private void jEliminarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarPersonaActionPerformed
-        fp.EliminaPersona(this);
-        fp.listarPersona(this);
-    }//GEN-LAST:event_jEliminarPersonaActionPerformed
-
     private void jActualizarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActualizarListaActionPerformed
         fp.listarPersona(this);
     }//GEN-LAST:event_jActualizarListaActionPerformed
@@ -340,7 +339,7 @@ public class RegistroProfesionales extends javax.swing.JPanel {
         JTable tabla = (JTable) evt.getSource();
         Point point = evt.getPoint();
         int row = tabla.rowAtPoint(point);
-        if(evt.getClickCount() == 1){
+        if (evt.getClickCount() == 1) {
             NombrePro.setText(jListaPersona.getValueAt(jListaPersona.getSelectedRow(), 2).toString());
             RutPro.setText(jListaPersona.getValueAt(jListaPersona.getSelectedRow(), 1).toString());
             PaternoPro.setText(jListaPersona.getValueAt(jListaPersona.getSelectedRow(), 3).toString());
@@ -358,7 +357,29 @@ public class RegistroProfesionales extends javax.swing.JPanel {
         fp.listarPersona(this);
     }//GEN-LAST:event_jEstadoActionPerformed
 
+    private void jPrivilegioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPrivilegioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPrivilegioActionPerformed
 
+    private void jLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLimpiarActionPerformed
+        fp.Limpiar(this);
+    }//GEN-LAST:event_jLimpiarActionPerformed
+
+    private void jModificarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jModificarPersonaActionPerformed
+        fp.ModificarPersona(this);
+        fp.listarPersona(this);
+    }//GEN-LAST:event_jModificarPersonaActionPerformed
+
+    private void jEliminarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarPersonaActionPerformed
+        fp.EliminaPersona(this);
+        fp.listarPersona(this);
+    }//GEN-LAST:event_jEliminarPersonaActionPerformed
+
+    private void jGuardarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarPersonaActionPerformed
+        fp.validación(this);
+    }//GEN-LAST:event_jGuardarPersonaActionPerformed
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField DirPro;
     public javax.swing.JTextField EmailPro;
@@ -376,6 +397,7 @@ public class RegistroProfesionales extends javax.swing.JPanel {
     private javax.swing.JButton jGuardarPersona;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

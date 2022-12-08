@@ -6,6 +6,8 @@ package Vistas_Administrador;
 
 import Conexión.Conexión;
 import Entidades.Persona;
+import Entidades.Persona2;
+import Vistas.CambioContraseña;
 import Vistas.Profesionales;
 import Vistas_Profesional.Capacitación;
 import Vistas_Profesional.Funciones_Profesional;
@@ -37,8 +39,9 @@ public class Funciones_Persona {
 
     Capacitación ca = new Capacitación();
     Profesionales pro = new Profesionales();
+    CambioContraseña cc = new CambioContraseña();
 
-    public void GuardarPersona(RegistroProfesionales rp) {
+    public void GuardarPersonaUsuario(RegistroProfesionales rp) {
 
         String nom = rp.NombrePro.getText();
         String rut = rp.RutPro.getText();
@@ -53,58 +56,122 @@ public class Funciones_Persona {
 
         try {
 
-            URL url = new URL("http://127.0.0.1:8000/administrador/persona");
-            Map<String, Object> params = new LinkedHashMap<>();
+            URL url = new URL("http://127.0.0.1:8000/administrador/personaUser");
+            
+                Map<String, Object> params = new LinkedHashMap<>();
 
-            params.put("RUT", rut);
-            params.put("NOMBRE", nom);
-            params.put("A_PATERNO", Apaterno);
-            params.put("A_MATERNO", Amaterno);
-            params.put("DIRECCION", dir);
-            params.put("CORREO", email);
-            params.put("TELEFONO", tel);
-            params.put("ID_ROL", opcion);
-            params.put("ID_ESTADO", 1);
-            params.put("USERNAME", rut);
-            params.put("PASSWORD", pass);
+                params.put("RUT", rut);
+                params.put("NOMBRE", nom);
+                params.put("A_PATERNO", Apaterno);
+                params.put("A_MATERNO", Amaterno);
+                params.put("DIRECCION", dir);
+                params.put("CORREO", email);
+                params.put("TELEFONO", tel);
+                params.put("ID_ROL", opcion);
+                params.put("ID_ESTADO", 1);
+                params.put("USERNAME", rut);
+                params.put("PASSWORD", pass);
 
-            //param.put("PASSWORD", pass );
-            StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String, Object> param : params.entrySet()) {
-                if (postData.length() != 0) {
-                    postData.append('&');
+                StringBuilder postData = new StringBuilder();
+                for (Map.Entry<String, Object> param : params.entrySet()) {
+                    if (postData.length() != 0) {
+                        postData.append('&');
+                    }
+                    postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                    postData.append('=');
+                    postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+                    //postData.append("}");
                 }
-                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-                postData.append('=');
-                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-                //postData.append("}");
-            }
-            byte[] postByte = postData.toString().getBytes("UTF-8");
+                byte[] postByte = postData.toString().getBytes("UTF-8");
 
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-            con.setRequestMethod("GET");
-            con.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            con.addRequestProperty("Content-Length", String.valueOf(postByte.length));
-            con.setDoOutput(true);
-            con.getOutputStream().write(postByte);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("POST");
+                con.setRequestMethod("GET");
+                con.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                con.addRequestProperty("Content-Length", String.valueOf(postByte.length));
+                con.setDoOutput(true);
+                con.getOutputStream().write(postByte);
 
-            int response = con.getResponseCode();
-            Map<String, String> map = new HashMap<>();
+                int response = con.getResponseCode();
+                Map<String, String> map = new HashMap<>();
 
-            map.put("201", "Registro Exitoso");
-            map.put("default", "Error en el registro");
+                map.put("201", "Registro Exitoso");
+                map.put("default", "Error en el registro");
 
-            if (response != 0) {
-                JOptionPane.showMessageDialog(null, map.get("" + response));
-            } else {
-                JOptionPane.showMessageDialog(null, map.get("default"));
-            }
+                if (response == 201) {
+                    JOptionPane.showMessageDialog(null, map.get("" + response));
+                } else {
+                    JOptionPane.showMessageDialog(null, map.get("default"));
+                }
+     
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
     }
 
+    public void GuardarRepresentante(RegistroProfesionales rp){
+        
+        String nom = rp.NombrePro.getText();
+        String rut = rp.RutPro.getText();
+        String Apaterno = rp.PaternoPro.getText();
+        String Amaterno = rp.MaternoPro.getText();
+        String dir = String.valueOf(0);
+        String email = String.valueOf(0);
+        String tel = String.valueOf(0);
+        
+        
+        try{
+            URL url = new URL("http://127.0.0.1:8000/administrador/persona");
+            
+            Map<String, Object> params = new LinkedHashMap<>();
+
+                params.put("RUT", rut);
+                params.put("NOMBRE", nom);
+                params.put("A_PATERNO", Apaterno);
+                params.put("A_MATERNO", Amaterno);
+                params.put("DIRECCION", dir);
+                params.put("CORREO", email);
+                params.put("TELEFONO", tel);
+                params.put("ID_ROL", 4);
+                params.put("ID_ESTADO", 1);
+                
+                StringBuilder postData = new StringBuilder();
+                for (Map.Entry<String, Object> param : params.entrySet()) {
+                    if (postData.length() != 0) {
+                        postData.append('&');
+                    }
+                    postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                    postData.append('=');
+                    postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+                    //postData.append("}");
+                }
+                byte[] postByte = postData.toString().getBytes("UTF-8");
+
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("POST");
+                con.setRequestMethod("GET");
+                con.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                con.addRequestProperty("Content-Length", String.valueOf(postByte.length));
+                con.setDoOutput(true);
+                con.getOutputStream().write(postByte);
+
+                int response = con.getResponseCode();
+                Map<String, String> map = new HashMap<>();
+
+                map.put("201", "Registro Exitoso");
+                map.put("default", "Error en el registro");
+
+                if (response == 201) {
+                    JOptionPane.showMessageDialog(null, map.get("" + response));
+                } else {
+                    JOptionPane.showMessageDialog(null, map.get("default"));
+                }
+            
+        }catch(Exception e){
+            
+        }
+    }
+    
     public void ModificarPersona(RegistroProfesionales rp) {
 
         String nom = rp.NombrePro.getText();
@@ -343,4 +410,159 @@ public class Funciones_Persona {
         }
         return listaPersona;
     }
+    
+    public ArrayList<Persona2> getPersona2() {
+
+        ArrayList<Persona2> listaPersona2 = new ArrayList<>();
+        try {
+            Connection cn = Conexión.getConnection();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select id_persona, nombre, rut from persona where id_rol = 4  order by id_persona");
+            while (rs.next()) {
+                Persona2 persona = new Persona2();
+                persona.setId_persona(rs.getInt("Id_Persona"));
+                persona.setNombre(rs.getString("Nombre"));
+                persona.setRut(rs.getString("Rut"));
+                System.out.println("cargo");
+                listaPersona2.add(persona);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Funciones_Profesional.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error");
+        }
+        return listaPersona2;
+    }
+
+    public void validación(RegistroProfesionales rp) {
+    
+        if(rp.jPrivilegio.getSelectedItem() == "seleccionar..."){
+            JOptionPane.showMessageDialog(null, "Seleccione un rol");
+        }
+        if (rp.jPrivilegio.getSelectedItem() == "administrador") {
+            if (rp.NombrePro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Nombre");
+            } else if (rp.RutPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Rut");
+            } else if (rp.PaternoPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Apellido Paterno");
+            } else if (rp.MaternoPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Apellido Materno");
+            } else if (rp.EmailPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Email");
+            } else if (rp.DirPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Direccion");
+            } else if (rp.TelPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Telefono");
+            } else if (rp.Pass.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Ingrese Contraseña");
+            } else {
+                GuardarPersonaUsuario(rp);
+                listarPersona(rp);
+            }
+        } else if (rp.jPrivilegio.getSelectedItem() == "profesional") {
+            if (rp.NombrePro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Nombre");
+            } else if (rp.RutPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Rut");
+            } else if (rp.PaternoPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Apellido Paterno");
+            } else if (rp.MaternoPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Apellido Materno");
+            } else if (rp.EmailPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Email");
+            } else if (rp.DirPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Direccion");
+            } else if (rp.TelPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Telefono");
+            } else if (rp.Pass.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Ingrese Contraseña");
+            } else {
+                GuardarPersonaUsuario(rp);
+                listarPersona(rp);
+            }
+        } else if (rp.jPrivilegio.getSelectedItem() == "representante") {
+            if (rp.NombrePro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Nombre");
+            } else if (rp.RutPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Rut");
+            } else if (rp.PaternoPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Apellido Paterno");
+            } else if (rp.MaternoPro.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese Apellido Materno");
+            } else if (rp.EmailPro.getText().length() != 0) {
+                JOptionPane.showMessageDialog(null, "NO Ingrese Email");
+            } else if (rp.DirPro.getText().length() != 0) {
+                JOptionPane.showMessageDialog(null, "NO Ingrese Direccion");
+            } else if (rp.TelPro.getText().length() != 0) {
+                JOptionPane.showMessageDialog(null, "NO Ingrese Telefono");
+            } else if (rp.Pass.getText().length() != 0) {
+                JOptionPane.showMessageDialog(null, "NO ingrese contraseña");
+            } else {
+                GuardarRepresentante(rp);
+                listarPersona(rp);
+            }                         
+        }
+    }
+
+    public void cambiar(Profesionales p){
+        
+        String user = p.JRUT.getText().trim();
+        String nueva = cc.jNueva.getText().trim();
+        
+
+        try {
+
+            URL url = new URL("http://127.0.0.1:8000/user/" + user + "/" + nueva + "?format=json");
+            Map<String, Object> params = new LinkedHashMap<>();
+
+            
+            params.put("USERNAME", user);
+            params.put("PASSWORD", nueva);
+            
+            
+
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String, Object> param : params.entrySet()) {
+                if (postData.length() != 0) {
+                    postData.append('&');
+                }
+                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+
+            }
+            byte[] postByte = postData.toString().getBytes("UTF-8");
+
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestMethod("GET");
+            con.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            con.addRequestProperty("Content-Length", String.valueOf(postByte.length));
+            con.setDoOutput(true);
+            con.getOutputStream().write(postByte);
+
+            int response = con.getResponseCode();
+            Map<String, String> map = new HashMap<>();
+
+            map.put("201", "Registro Exitoso");
+            map.put("default", "Error en el registro");
+
+            if (response == 201) {
+                JOptionPane.showMessageDialog(null, map.get("" + response));
+            } else {
+                JOptionPane.showMessageDialog(null, map.get("default"));
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+    }
+
+    public void user(Profesionales p){
+        CambioContraseña cc = new CambioContraseña();
+        String user = p.JRUT.toString();
+        cc.jRUT.setText(user);
+    }
+    
+ 
+    
 }

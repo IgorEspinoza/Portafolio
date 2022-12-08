@@ -449,11 +449,12 @@ public class Login extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public void login() {
-        String user = jTextUsuario.getText();
-        String pass = String.valueOf(jPassContraseña.getPassword());
+        String user = jTextUsuario.getText().trim();
+        String pass = String.valueOf(jPassContraseña.getPassword()).trim();
 
         Profesionales pro1 = new Profesionales();
         Administrador ad = new Administrador();
+        CambioContraseña cc = new CambioContraseña();
         try {
             URL url = new URL("http://127.0.0.1:8000/login/" + user + "/" + pass + "?format=json");
             HttpURLConnection curl = (HttpURLConnection) url.openConnection();
@@ -510,6 +511,7 @@ public class Login extends javax.swing.JFrame {
                             ad.JIDA.setText(datos[0]);
                             ad.JNOMA.setText(datos[1] + " " + datos[3]);
                             ad.JRUTA.setText(datos[2]);
+                            cc.jRUT.setText(datos[2]);
                             this.setVisible(false);
 
                         } else if (datos[4].equals("2")) {
@@ -518,6 +520,7 @@ public class Login extends javax.swing.JFrame {
                             pro1.JID.setText(datos[0]);
                             pro1.JNOM.setText(datos[1] + " " + datos[3]);
                             pro1.JRUT.setText(datos[2]);
+                            cc.jRUT.setText(datos[2]);
                             this.setVisible(false);
                         }
                     } else {

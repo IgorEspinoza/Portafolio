@@ -6,6 +6,7 @@ package Vistas;
 
 import Conexión.CerrarConexion;
 import Entidades.Empresa;
+import Vistas_Administrador.Funciones_Persona;
 import Vistas_Profesional.Asesorías;
 import Vistas_Profesional.Capacitación;
 import Vistas_Profesional.CheckList;
@@ -26,7 +27,7 @@ import javax.swing.ImageIcon;
 public class Profesionales extends javax.swing.JFrame {
     
     Empresa empresa = new Empresa();
-    CambioContraseña cc = new CambioContraseña();
+    
     int xMouse, yMouse;
     public int id;
     public int id2;
@@ -292,10 +293,14 @@ public class Profesionales extends javax.swing.JFrame {
         JNOM.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         JNOM.setBorder(null);
 
-        JRUT.setEditable(false);
         JRUT.setBackground(new java.awt.Color(214, 217, 223));
         JRUT.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         JRUT.setBorder(null);
+        JRUT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JRUTActionPerformed(evt);
+            }
+        });
 
         jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
@@ -510,8 +515,15 @@ public class Profesionales extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CambioContraseña cc = new CambioContraseña();
+        Funciones_Persona fp = new Funciones_Persona();
+        fp.user(this);
         cc.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void JRUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRUTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JRUTActionPerformed
 
     
     /**
